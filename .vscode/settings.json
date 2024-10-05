@@ -1,0 +1,84 @@
+{
+  "editor.formatOnSave": true,
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.hiddenLanguageServerErrors": [
+    // Solution for frequent nil errors
+    "textDocument/documentSymbol",
+    "textDocument/formatting",
+    // Solution for frequent nixd errors
+    "textDocument/definition",
+    "textDocument/documentHighlight"
+  ],
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": [
+          "alejandra"
+        ]
+      },
+      "nix": {
+        // The path to the `nix` binary.
+        // Type: string
+        // Example: "/run/current-system/sw/bin/nix"
+        "binary": "nix",
+        // The heap memory limit in MiB for `nix` evaluation.
+        // Currently it only applies to flake evaluation when `autoEvalInputs` is
+        // enabled, and only works for Linux. Other `nix` invocations may be also
+        // applied in the future. `null` means no limit.
+        // As a reference, `nix flake show --legacy nixpkgs` usually requires
+        // about 2GiB memory.
+        //
+        // Type: number | null
+        // Example: 1024
+        "maxMemoryMB": 2560,
+        "flake": {
+          // Auto-archiving behavior which may use network.
+          //
+          // - null: Ask every time.
+          // - true: Automatically run `nix flake archive` when necessary.
+          // - false: Do not archive. Only load inputs that are already on disk.
+          // Type: null | boolean
+          // Example: true
+          "autoArchive": null,
+          // Whether to auto-eval flake inputs.
+          // The evaluation result is used to improve completion, but may cost
+          // lots of time and/or memory.
+          //
+          // Type: boolean
+          // Example: true
+          "autoEvalInputs": false,
+          // The input name of nixpkgs for NixOS options evaluation.
+          //
+          // The options hierarchy is used to improve completion, but may cost
+          // lots of time and/or memory.
+          // If this value is `null` or is not found in the workspace flake's
+          // inputs, NixOS options are not evaluated.
+          //
+          // Type: null | string
+          // Example: "nixos"
+          "nixpkgsInputName": "nixpkgs",
+        },
+      },
+    },
+    "nixd": {
+      "formatting": {
+        // This is the default if ommited.
+        "command": [
+          "alejandra"
+        ]
+      },
+      "options": {
+        // By default, this entriy will be read from `import <nixpkgs> { }`
+        // You can write arbitary nix expression here, to produce valid "options" declaration result.
+        // Tip: for flake-based configuration, utilize `builtins.getFlake`
+        "nixos": {
+          "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.legion.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"cocoshka@legion\".options"
+        }
+      }
+    }
+  }
+}
