@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version: 2
+final_space: false
+console_title_template: "{{ .Shell }} in {{ .Folder }}"
+
+palette:
+  success: green
+  error: red
+  path: lightBlue
+  git: "#f64d27"
+  time: white
+
+blocks:
+  - type: prompt
+    alignment: left
+    newline: true
+    segments:
+      - type: path
+        alias: path
+        style: plain
+        foreground: lightBlue
+        properties:
+          style: agnoster_short
+          max_depth: 3
+          folder_icon: ...
+        template: "{{ if not .Env.OMP_PLAIN }}\ue5ff {{ end }}{{ path .Path .Location }} "
+
+      - type: git
+        alias: iconGit
+        style: plain
+        foreground: p:git
+        properties:
+          branch_icon: "\ue725 "
+          cherry_pick_icon: "\ue29b "
+          commit_icon: "\uf417 "
+          fetch_status: false
+          fetch_upstream_icon: false
+          merge_icon: "\ue727 "
+          no_commits_icon: "\uf0c3 "
+          rebase_icon: "\ue728 "
+          revert_icon: "\uf0e2 "
+          tag_icon: "\uf412 "
+        template: "{{ if not .Env.OMP_PLAIN }}{{ .HEAD }} {{ end }}"
+
+      - type: git
+        alias: plainGit
+        style: plain
+        foreground: p:git
+        properties:
+          branch_icon: ""
+          cherry_pick_icon: ""
+          commit_icon: ""
+          fetch_status: false
+          fetch_upstream_icon: false
+          merge_icon: ""
+          no_commits_icon: ""
+          rebase_icon: ""
+          revert_icon: ""
+          tag_icon: ""
+        template: "{{ if .Env.OMP_PLAIN }}git:{{ .HEAD }} {{end}}"
+
+      - type: session
+        style: plain
+        template: "{{ .UserName }}{{ if .SSHSession }}@{{ .HostName }}{{ end }} "
+
+  - type: prompt
+    alignment: right
+    segments:
+      - type: executiontime
+        alias: executiontime
+        style: plain
+        foreground_templates:
+          - "{{ if gt .Code 0 }}red{{ else }}green{{ end }}"
+        properties:
+          threshold: 1
+          style: austin
+        template: "{{ if not .Env.OMP_PLAIN }}\uf254{{ end }} {{ .FormattedMs }}"
+
+      - type: time
+        alias: time
+        style: plain
+        foreground: p:time
+        properties:
+          time_format: "15:04:05"
+        template: " {{ if not .Env.OMP_PLAIN }}\uf017  {{ end }}{{ .CurrentDate | date .Format }}"
+
+  - type: prompt
+    alignment: left
+    newline: true
+    segments:
+      - type: text
+        style: plain
+        template: "$ "
+
+secondary_prompt:
+  foreground: white
+  template: "{{ if not .Env.OMP_PLAIN }}\uf105{{ else }}>{{ end }} "

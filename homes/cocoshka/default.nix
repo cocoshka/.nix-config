@@ -1,6 +1,7 @@
 {
   inputs,
   outputs,
+  config,
   lib,
   pkgs,
   ...
@@ -16,7 +17,14 @@ in {
 
   modules = {
     general.enable = true;
+    oh-my-posh = {
+      enable = true;
+      configFile = ./configs/oh-my-posh/config.yaml;
+      symlink = true;
+    };
   };
+
+  programs.zsh.enable = true;
 
   programs.git = {
     enable = true;
