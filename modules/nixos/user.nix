@@ -25,7 +25,7 @@ in {
 
     modules.user = {
       isNormalUser = true;
-      description = lib.mkDefault "The primary user account";
+      description = lib.mkDefault (cfg.name or args.username);
       extraGroups = ["wheel"];
       initialPassword = "nixos";
     };
