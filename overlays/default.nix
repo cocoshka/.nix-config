@@ -18,5 +18,9 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
+    epsonscan2 = prev.epsonscan2.override {
+      withNonFreePlugins = true;
+      withGui = true;
+    };
   };
 }

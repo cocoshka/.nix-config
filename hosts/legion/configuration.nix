@@ -54,6 +54,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = with pkgs; [epson-escpr];
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
@@ -69,6 +75,7 @@
     wget
     pciutils
     sbctl
+    epsonscan2
   ];
 
   environment.sessionVariables = {
