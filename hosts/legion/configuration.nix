@@ -63,6 +63,9 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+  services.libinput.touchpad.tapping = false;
+  services.libinput.touchpad.disableWhileTyping = true;
+  services.libinput.touchpad.clickMethod = "buttonareas";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
