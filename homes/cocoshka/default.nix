@@ -24,6 +24,11 @@ in {
     };
   };
 
+  fonts.fontconfig.enable = true;
+  home.packages = [
+    (pkgs.nerdfonts.override {fonts = ["FiraCode"];})
+  ];
+
   programs.zsh.enable = true;
 
   programs.git = {
