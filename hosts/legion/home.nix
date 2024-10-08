@@ -7,7 +7,9 @@
     inputs.spicetify-nix.homeManagerModules.default
   ];
 
-  modules = {};
+  modules = {
+    virtualisation.qemu.enable = true;
+  };
 
   home.packages = with pkgs; [
     brave

@@ -33,6 +33,8 @@
 
     gaming.enable = true;
 
+    virtualisation.qemu.enable = true;
+
     user = {
       extraGroups = ["networkmanager"];
       shell = pkgs.zsh;
@@ -80,6 +82,8 @@
     pciutils
     sbctl
     epsonscan2
+    gnumake
+    python3
   ];
 
   environment.sessionVariables = {
