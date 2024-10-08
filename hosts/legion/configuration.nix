@@ -34,6 +34,7 @@
     gaming.enable = true;
 
     virtualisation.qemu.enable = true;
+    virtualisation.docker.enable = true;
 
     user = {
       extraGroups = ["networkmanager"];
