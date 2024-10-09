@@ -17,7 +17,7 @@ in {
 
   modules = {
     general.enable = true;
-    oh-my-posh = {
+    programs.oh-my-posh = {
       enable = true;
       configFile = ./configs/oh-my-posh/config.yaml;
       symlink = true;
@@ -29,7 +29,14 @@ in {
     (pkgs.nerdfonts.override {fonts = ["FiraCode"];})
   ];
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    history = {
+      append = true;
+      ignoreAllDups = true;
+      ignoreSpace = true;
+    };
+  };
 
   programs.git = {
     enable = true;

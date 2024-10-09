@@ -4,12 +4,12 @@
   pkgs,
   ...
 }: let
-  cfg = config.modules.oh-my-posh;
+  cfg = config.modules.programs.oh-my-posh;
 
   fileName = builtins.baseNameOf cfg.configFile;
 in {
   options = {
-    modules.oh-my-posh = {
+    modules.programs.oh-my-posh = {
       enable = lib.mkEnableOption "enables oh-my-posh module";
       package = lib.mkPackageOption pkgs "oh-my-posh" {};
       configFile = lib.mkOption {
