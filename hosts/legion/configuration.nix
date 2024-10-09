@@ -48,7 +48,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Hardware
-  services.thermald.enable = true;
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:35:0:0";
     nvidiaBusId = "PCI:01:0:0";
