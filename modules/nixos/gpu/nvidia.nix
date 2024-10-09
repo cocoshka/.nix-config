@@ -13,6 +13,10 @@ in {
         type = lib.types.bool;
         default = false;
       };
+      game-mode = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
       ddg = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -38,31 +42,35 @@ in {
         };
       };
 
-      specialisation.game-mode.configuration = {
-        hardware.nvidia.prime = {
-          sync.enable = lib.mkForce true;
-          offload = {
-            enable = lib.mkForce false;
-            enableOffloadCmd = lib.mkForce false;
+      specialisation.game-mode = lib.mkIf cfg.game-mode {
+        configuration = {
+          hardware.nvidia.prime = {
+            sync.enable = lib.mkForce true;
+            offload = {
+              enable = lib.mkForce false;
+              enableOffloadCmd = lib.mkForce false;
+            };
           };
         };
       };
 
-      specialisation.ddg.configuration = lib.mkIf cfg.ddg {
-        system.nixos.tags = ["Dual-Direct-GFX-Mode"];
-        services.xserver.videoDrivers = ["nvidia"];
-        hardware =
-          {
-            nvidia.prime.sync.enable = lib.mkForce false;
-            nvidia.prime.offload = {
-              enable = lib.mkForce false;
-              enableOffloadCmd = lib.mkForce false;
+      specialisation.ddg = lib.mkIf cfg.ddg {
+        configuration = {
+          system.nixos.tags = ["Dual-Direct-GFX-Mode"];
+          services.xserver.videoDrivers = ["nvidia"];
+          hardware =
+            {
+              nvidia.prime.sync.enable = lib.mkForce false;
+              nvidia.prime.offload = {
+                enable = lib.mkForce false;
+                enableOffloadCmd = lib.mkForce false;
+              };
+            }
+            // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
+              # introduced in https://github.com/NixOS/nixpkgs/pull/319865
+              amdgpu.opencl.enable = lib.mkDefault false;
             };
-          }
-          // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
-            # introduced in https://github.com/NixOS/nixpkgs/pull/319865
-            amdgpu.opencl.enable = lib.mkDefault false;
-          };
+        };
       };
     })
   ]);

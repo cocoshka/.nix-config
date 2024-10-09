@@ -27,6 +27,7 @@
     gpu.nvidia = {
       enable = true;
       hybrid = true;
+      ddg = true;
     };
 
     desktop.gnome.enable = true;
