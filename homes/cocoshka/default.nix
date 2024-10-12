@@ -18,6 +18,9 @@
   };
 
   home.packages = with pkgs; [
+    nil
+    nixd
+    alejandra
     bat
     btop
     jq

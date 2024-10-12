@@ -38,7 +38,7 @@
     virtualisation.docker.enable = true;
 
     user = {
-      extraGroups = ["networkmanager"];
+      extraGroups = ["networkmanager" "openrazer"];
       shell = pkgs.zsh;
     };
   };
@@ -52,6 +52,7 @@
     amdgpuBusId = "PCI:35:0:0";
     nvidiaBusId = "PCI:01:0:0";
   };
+  hardware.openrazer.enable = true;
 
   # Network
   networking.networkmanager.enable = true;
@@ -75,9 +76,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # The Nano editor is installed by default.
-    nil
-    nixd
-    alejandra
     curl
     wget
     pciutils
@@ -85,6 +83,8 @@
     epsonscan2
     gnumake
     python3
+    openrazer-daemon
+    polychromatic
   ];
 
   environment.sessionVariables = {
