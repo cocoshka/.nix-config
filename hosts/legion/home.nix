@@ -15,11 +15,17 @@
     brave
     vesktop
     vscode
-    fastfetch
+    ffmpeg
+    obsidian
+    caprine
 
     (makeAutostartItem {
       name = "vesktop";
       package = vesktop;
+    })
+    (makeAutostartItem {
+      name = "caprine";
+      package = caprine;
     })
   ];
 

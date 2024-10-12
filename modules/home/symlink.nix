@@ -1,5 +1,4 @@
 {
-  flake-root,
   inputs,
   config,
   lib,
