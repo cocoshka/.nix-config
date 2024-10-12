@@ -1,12 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
-  imports = [
-    inputs.spicetify-nix.homeManagerModules.default
-  ];
-
+{pkgs, ...}: {
   modules = {
     virtualisation.qemu.enable = true;
   };

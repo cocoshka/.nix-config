@@ -1,4 +1,5 @@
 {
+  inputs,
   outputs,
   internal,
   pkgs,
@@ -9,6 +10,7 @@
 
   imports =
     [
+      inputs.spicetify-nix.homeManagerModules.default
       outputs.homeModules
     ]
     ++ internal.listModules ./.;

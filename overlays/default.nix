@@ -11,6 +11,13 @@
     };
   };
 
+  upstream-packages = final: prev: {
+    upstream = import inputs.nixpkgs-upstream {
+      system = final.system;
+      config.allowUnfree = final.config.allowUnfree or false;
+    };
+  };
+
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays

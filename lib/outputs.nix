@@ -107,7 +107,10 @@ in rec {
           or attrs.system
           or builtins.currentSystem;
 
-        pkgs = nixpkgs.legacyPackages.${hostSystem};
+        pkgs =
+          if attrs ? pkgs
+          then attrs.pkgs
+          else nixpkgs.legacyPackages.${hostSystem};
 
         args =
           {
@@ -127,7 +130,7 @@ in rec {
               ++ lib.optional (builtins.pathExists home-configuration) home-configuration
               ++ modules;
           }
-          // lib.removeAttrs attrs ["extraSpecialArgs" "modules" "nixpkgs" "system"]
+          // lib.removeAttrs attrs ["extraSpecialArgs" "modules" "nixpkgs" "system" "pkgs"]
         )
     )
     configs;

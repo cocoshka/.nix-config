@@ -68,6 +68,10 @@
           "alejandra"
         ]
       },
+      "nixpkgs": {
+        // For flake.
+        "expr": "with (builtins.getFlake (toString ./.)); let pkg = name: if inputs ? ${name} then import inputs.${name} {} else {}; in (pkg ''nixpkgs'') // { unstable = pkg ''nixpkgs-unstable''; upstream = pkg ''nixpkgs-upstream'';}"
+      },
       "options": {
         // By default, this entriy will be read from `import <nixpkgs> { }`
         // You can write arbitary nix expression here, to produce valid "options" declaration result.
@@ -76,7 +80,7 @@
           "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.legion.options"
         },
         "home-manager": {
-          "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"cocoshka@legion\".options"
+          "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"cocoshka@rpi\".options.home-manager.users.cocoshka"
         }
       }
     }
