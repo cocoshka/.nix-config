@@ -10,6 +10,7 @@
     ffmpeg
     obsidian
     caprine
+    bitwarden-desktop
 
     (makeAutostartItem {
       name = "vesktop";
