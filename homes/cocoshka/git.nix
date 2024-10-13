@@ -19,6 +19,9 @@
         rebase = true;
       };
       push = {
+        autoSetupRemote = true;
+      };
+      rebase = {
         autoSquash = true;
       };
     };
