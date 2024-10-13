@@ -30,17 +30,25 @@
       ddg = true;
     };
 
+    hardware.razer.enable = true;
+
+    system.fs.enable = true;
+    system.utils.enable = true;
+
+    user = {
+      extraGroups = ["networkmanager"];
+    };
+
+    shell.zsh.enable = true;
+
+    services.printing.enable = true;
+
     desktop.gnome.enable = true;
 
     gaming.enable = true;
 
     virtualisation.qemu.enable = true;
     virtualisation.docker.enable = true;
-
-    user = {
-      extraGroups = ["networkmanager" "openrazer"];
-      shell = pkgs.zsh;
-    };
   };
 
   # Bootloader
@@ -52,19 +60,9 @@
     amdgpuBusId = "PCI:35:0:0";
     nvidiaBusId = "PCI:01:0:0";
   };
-  hardware.openrazer.enable = true;
 
   # Network
   networking.networkmanager.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [epson-escpr];
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
@@ -76,22 +74,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # The Nano editor is installed by default.
-    curl
-    wget
-    pciutils
-    sbctl
-    epsonscan2
-    gnumake
-    python3
-    openrazer-daemon
-    polychromatic
   ];
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
-
-  programs.zsh.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
