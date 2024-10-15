@@ -30,6 +30,35 @@
       ddg = true;
     };
 
+    audio.pipewire.enable = true;
+    audio.pipewire.virtualDevices = [
+      {
+        "node.name" = "Mixed-Input";
+        "node.description" = "Mixed Input";
+        "media.class" = "Audio/Source/Virtual";
+        "audio.position" = "MONO";
+      }
+      {
+        "node.name" = "Aux-Input";
+        "node.description" = "Aux Input";
+        "media.class" = "Audio/Source/Virtual";
+        "audio.position" = "MONO";
+      }
+      {
+        "node.name" = "Recording-Output";
+        "node.description" = "Recording Output";
+        "media.class" = "Audio/Sink";
+        "audio.position" = "FL,FR";
+      }
+      {
+        "node.name" = "Monitor-Output";
+        "node.description" = "Monitor Output";
+        "media.class" = "Audio/Sink";
+        "audio.position" = "FL,FR";
+        "monitor.channel-volumes" = "true";
+      }
+    ];
+
     hardware.razer.enable = true;
 
     system.fs.enable = true;
@@ -74,6 +103,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # The Nano editor is installed by default.
+    obs-studio
   ];
 
   environment.sessionVariables = {
