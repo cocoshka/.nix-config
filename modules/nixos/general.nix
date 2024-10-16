@@ -21,6 +21,7 @@ in {
     };
 
     time.timeZone = lib.mkDefault "Europe/Warsaw";
+    time.hardwareClockInLocalTime = true;
 
     services.xserver.xkb = lib.mkDefault {
       layout = "pl";
