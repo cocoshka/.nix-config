@@ -36,10 +36,9 @@ in rec {
         username = names.username or "";
         hostname = names.hostname;
 
-        hardware-configuration = flake-root + /hosts/${hostname}/hardware-configuration.nix;
-        configuration = flake-root + /hosts/${hostname}/configuration.nix;
+        host-configuration = flake-root + /hosts/${hostname}/default.nix;
         user-configuration = flake-root + /homes/${username}/default.nix;
-        home-configuration = flake-root + /hosts/${hostname}/home.nix;
+        home-configuration = flake-root + /hosts/${hostname}/home/default.nix;
 
         hostSystem =
           outputs.nixosConfigurations.${hostname}.pkgs.system
@@ -66,8 +65,7 @@ in rec {
                     networking.hostName = lib.mkDefault hostname;
                   }
                 ]
-                ++ lib.optional (builtins.pathExists hardware-configuration) hardware-configuration
-                ++ lib.optional (builtins.pathExists configuration) configuration
+                ++ lib.optional (builtins.pathExists host-configuration) host-configuration
                 ++ lib.optionals (home-manager != null) [
                   home-manager
                   {
@@ -111,7 +109,7 @@ in rec {
         hostname = names.hostname or "";
 
         user-configuration = flake-root + /homes/${username}/default.nix;
-        home-configuration = flake-root + /hosts/${hostname}/home.nix;
+        home-configuration = flake-root + /hosts/${hostname}/home/default.nix;
 
         hostSystem =
           outputs.nixosConfigurations.${hostname}.pkgs.system
