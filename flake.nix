@@ -10,6 +10,9 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.darwin.follows = "";
+
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };

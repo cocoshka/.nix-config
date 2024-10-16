@@ -29,5 +29,7 @@ in {
     };
 
     console.keyMap = lib.mkDefault "pl2";
+
+    services.openssh.enable = true;
   };
 }

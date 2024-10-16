@@ -41,6 +41,12 @@ in rec {
         user-configuration = flake-root + /homes/${username}/default.nix;
         home-configuration = flake-root + /hosts/${hostname}/home.nix;
 
+        hostSystem =
+          outputs.nixosConfigurations.${hostname}.pkgs.system
+          or outputs.darwinConfigurations.${hostname}.pkgs.system
+          or attrs.system
+          or builtins.currentSystem;
+
         args =
           {
             inherit flake-root inputs outputs internal;
@@ -76,6 +82,12 @@ in rec {
                           ++ lib.optional (builtins.pathExists home-configuration) home-configuration;
                       };
                     };
+                  }
+                ]
+                ++ lib.optionals (inputs ? agenix) [
+                  inputs.agenix.nixosModules.default
+                  {
+                    environment.systemPackages = [inputs.agenix.packages.${hostSystem}.default];
                   }
                 ]
                 ++ modules;
@@ -128,6 +140,12 @@ in rec {
             modules =
               lib.optional (builtins.pathExists user-configuration) user-configuration
               ++ lib.optional (builtins.pathExists home-configuration) home-configuration
+              ++ lib.optionals (inputs ? agenix) [
+                inputs.agenix.homeManagerModules.default
+                {
+                  environment.systemPackages = [inputs.agenix.packages.${hostSystem}.default];
+                }
+              ]
               ++ modules;
           }
           // lib.removeAttrs attrs ["extraSpecialArgs" "modules" "nixpkgs" "system" "pkgs"]
