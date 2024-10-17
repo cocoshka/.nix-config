@@ -29,5 +29,16 @@
       withNonFreePlugins = true;
       withGui = true;
     };
+
+    dislocker = prev.dislocker.overrideAttrs (old: {
+      version = "0.7.3-master";
+      src = prev.fetchFromGitHub {
+        owner = "aorimn";
+        repo = "dislocker";
+        rev = "3e7aea196eaa176c38296a9bc75c0201df0a3679";
+        sha256 = "jKk+okSQJ54R17EiUk9NnjLxGi6RrwFrGFVi8ekckww=";
+      };
+      patches = [];
+    });
   };
 }
