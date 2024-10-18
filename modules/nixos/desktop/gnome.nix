@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.modules.desktop.gnome;
@@ -16,5 +17,23 @@ in {
 
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
+
+    environment.gnome.excludePackages = with pkgs; [
+      gnome-contacts
+      gnome-music
+      gnome-weather
+      gnome-photos
+      gnome-tour
+      gnome-connections
+      epiphany
+      totem
+      geary
+      yelp
+    ];
+
+    services.xserver.excludePackages = with pkgs; [
+      xterm
+    ];
+
   };
 }
