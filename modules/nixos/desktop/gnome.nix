@@ -35,5 +35,12 @@ in {
       xterm
     ];
 
+    environment.systemPackages = with pkgs;
+      [
+        gnome-tweaks
+      ]
+      ++ (with pkgs.gnomeExtensions; [
+        dash-to-dock
+      ]);
   };
 }
