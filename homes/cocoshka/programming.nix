@@ -9,5 +9,11 @@
 
     go
     rustup
+
+    kotlin
+
+    temurin-bin-21
+    gradle
+    maven
   ];
 }
