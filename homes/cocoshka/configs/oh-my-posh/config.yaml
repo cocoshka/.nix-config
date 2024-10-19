@@ -24,7 +24,7 @@ blocks:
           style: agnoster_short
           max_depth: 3
           folder_icon: ...
-        template: "{{ if not .Env.OMP_PLAIN }}\ue5ff {{ end }}{{ path .Path .Location }} "
+        template: "{{ if .Env.DISPLAY }}\ue5ff {{ end }}{{ path .Path .Location }} "
 
       - type: git
         alias: iconGit
@@ -41,7 +41,7 @@ blocks:
           rebase_icon: "\ue728 "
           revert_icon: "\uf0e2 "
           tag_icon: "\uf412 "
-        template: "{{ if not .Env.OMP_PLAIN }}{{ .HEAD }} {{ end }}"
+        template: "{{ if .Env.DISPLAY }}{{ .HEAD }} {{ end }}"
 
       - type: git
         alias: plainGit
@@ -58,7 +58,7 @@ blocks:
           rebase_icon: ""
           revert_icon: ""
           tag_icon: ""
-        template: "{{ if .Env.OMP_PLAIN }}git:{{ .HEAD }} {{end}}"
+        template: "{{ if not .Env.DISPLAY }}git:{{ .HEAD }} {{end}}"
 
       - type: session
         style: plain
@@ -75,7 +75,7 @@ blocks:
         properties:
           threshold: 1
           style: austin
-        template: "{{ if not .Env.OMP_PLAIN }}\uf254{{ end }} {{ .FormattedMs }}"
+        template: "{{ if .Env.DISPLAY }}\uf254{{ end }} {{ .FormattedMs }}"
 
       - type: time
         alias: time
@@ -83,7 +83,7 @@ blocks:
         foreground: p:time
         properties:
           time_format: "15:04:05"
-        template: " {{ if not .Env.OMP_PLAIN }}\uf017  {{ end }}{{ .CurrentDate | date .Format }}"
+        template: " {{ if .Env.DISPLAY }}\uf017  {{ end }}{{ .CurrentDate | date .Format }}"
 
   - type: prompt
     alignment: left
@@ -95,4 +95,4 @@ blocks:
 
 secondary_prompt:
   foreground: white
-  template: "{{ if not .Env.OMP_PLAIN }}\uf105{{ else }}>{{ end }} "
+  template: "{{ if .Env.DISPLAY }}\uf105{{ else }}>{{ end }} "
