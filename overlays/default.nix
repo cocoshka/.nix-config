@@ -40,5 +40,9 @@
       };
       patches = [];
     });
+
+    brave = prev.brave.override {
+      commandLineArgs = "--disable-gpu-memory-buffer-video-frames";
+    };
   };
 }
