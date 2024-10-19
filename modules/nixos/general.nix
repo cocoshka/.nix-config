@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.modules.general;
@@ -31,5 +32,9 @@ in {
     console.keyMap = lib.mkDefault "pl2";
 
     services.openssh.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      gnumake
+    ];
   };
 }
