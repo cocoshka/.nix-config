@@ -6,28 +6,30 @@
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
   programs.spicetify = {
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "frappe";
+    theme = spicePkgs.themes.comfy;
+    colorScheme = "spotify";
 
-    enabledExtensions = with spicePkgs.extensions; [
-      # adblock
-      autoSkipVideo
-      bookmark
-      fullAppDisplay
-      shuffle
-      trashbin
+    enabledSnippets = [
+      ''
+        .main-entityHeader-backgroundColor, .main-actionBarBackground-background {
+          background-color: var(--decorative-subdued) !important;
+        }
 
-      goToSong
-      songStats
-      betterGenres
-      hidePodcasts
-      volumePercentage
+        .lyrics-lyrics-container {
+          --lyrics-color-passed: var(--text-subdued) !important;
+          --lyrics-color-active: var(--text-bright-accent) !important;
+          --lyrics-color-inactive: var(--essential-subdued) !important;
+          --lyrics-color-background: transparent !important;
+          --lyrics-color-messaging: black !important;
+        }
+      ''
     ];
 
-    enabledCustomApps = with spicePkgs.apps; [
-      lyricsPlus
-      # marketplace
-      historyInSidebar
+    enabledExtensions = with spicePkgs.extensions; [
+      autoSkipVideo
+      songStats
+      betterGenres
+      volumePercentage
     ];
   };
 }
