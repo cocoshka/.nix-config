@@ -71,5 +71,9 @@ in {
         PasswordAuthentication = lib.mkDefault false;
       };
     };
+
+    # Fix for NixOS unable to run dynamically linked executables intended for generic linux environments out of the box.
+    # https://nix.dev/permalink/stub-ld
+    programs.nix-ld.enable = true;
   };
 }
