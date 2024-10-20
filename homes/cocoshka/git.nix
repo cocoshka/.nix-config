@@ -17,12 +17,19 @@
       };
       pull = {
         rebase = true;
+        ff = "only";
+      };
+      merge = {
+        ff = "only";
+      };
+      rebase = {
+        autoSquash = true;
       };
       push = {
         autoSetupRemote = true;
       };
-      rebase = {
-        autoSquash = true;
+      rerere = {
+        enabled = true;
       };
     };
   };
