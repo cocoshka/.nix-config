@@ -1,5 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    vscode
+    jetbrains.idea-ultimate
+
     python3
     python3Packages.pip
 
@@ -12,8 +15,12 @@
 
     kotlin
 
-    temurin-bin-21
     gradle
     maven
   ];
+
+  programs.java = with pkgs; {
+    enable = true;
+    package = temurin-bin-21;
+  };
 }

@@ -6,7 +6,6 @@
   home.packages = with pkgs; [
     brave
     vesktop
-    vscode
     ffmpeg
     obsidian
     caprine
