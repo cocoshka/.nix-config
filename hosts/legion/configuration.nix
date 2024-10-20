@@ -56,6 +56,7 @@
       }
     ];
 
+    hardware.tlp.enable = true;
     hardware.razer.enable = true;
 
     system.fs.enable = true;
