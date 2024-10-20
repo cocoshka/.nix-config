@@ -14,6 +14,7 @@
     rustup
 
     kotlin
+    kotlin-language-server
 
     gradle
     maven
