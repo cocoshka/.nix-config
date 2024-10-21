@@ -41,6 +41,7 @@ in {
       ]
       ++ (with pkgs.gnomeExtensions; [
         dash-to-dock
+        pip-on-top
       ]);
   };
 }
