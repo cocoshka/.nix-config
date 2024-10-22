@@ -27,5 +27,6 @@
     btop
     jq
     fastfetch
+    age
   ];
 }
