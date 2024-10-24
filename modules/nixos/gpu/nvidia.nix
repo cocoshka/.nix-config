@@ -1,6 +1,5 @@
 {
   config,
-  options,
   lib,
   ...
 }: let
@@ -13,39 +12,39 @@ in {
         type = lib.types.bool;
         default = false;
       };
-      game-mode = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
-      ddg = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-      };
     };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      hardware.nvidia.open = lib.mkDefault true;
-      services.xserver.videoDrivers = lib.mkDefault ["nvidia"];
-
       hardware.nvidia = {
+        open = lib.mkDefault false;
         modesetting.enable = lib.mkDefault true;
-        powerManagement.enable = lib.mkDefault true;
+        powerManagement.enable = lib.mkDefault false;
       };
+      services.xserver.videoDrivers = lib.mkDefault ["nvidia"];
     }
     (lib.mkIf cfg.hybrid {
-      hardware.nvidia.prime = {
-        offload = {
-          enable = lib.mkOverride 990 true;
-          enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable true;
-        };
+      hardware.nvidia = {
+        prime.sync.enable = lib.mkOverride 990 true;
       };
 
-      specialisation.game-mode = lib.mkIf cfg.game-mode {
-        configuration = {
+      specialisation = {
+        on-the-go.configuration = {
+          system.nixos.tags = ["on-the-go"];
           hardware.nvidia.prime = {
-            sync.enable = lib.mkForce true;
+            sync.enable = lib.mkForce false;
+            offload = {
+              enable = lib.mkOverride 990 true;
+              enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable true;
+            };
+          };
+        };
+
+        ddg.configuration = {
+          system.nixos.tags = ["Dual-Direct-GFX-Mode"];
+          hardware.nvidia.prime = {
+            sync.enable = lib.mkForce false;
             offload = {
               enable = lib.mkForce false;
               enableOffloadCmd = lib.mkForce false;
@@ -53,25 +52,10 @@ in {
           };
         };
       };
-
-      specialisation.ddg = lib.mkIf cfg.ddg {
-        configuration = {
-          system.nixos.tags = ["Dual-Direct-GFX-Mode"];
-          services.xserver.videoDrivers = ["nvidia"];
-          hardware =
-            {
-              nvidia.prime.sync.enable = lib.mkForce false;
-              nvidia.prime.offload = {
-                enable = lib.mkForce false;
-                enableOffloadCmd = lib.mkForce false;
-              };
-            }
-            // lib.optionalAttrs (options ? amdgpu.opencl.enable) {
-              # introduced in https://github.com/NixOS/nixpkgs/pull/319865
-              amdgpu.opencl.enable = lib.mkDefault false;
-            };
-        };
-      };
+    })
+    (lib.mkIf (cfg.hybrid && config.modules.gpu.amd.enable) {
+      boot.kernelModules = lib.mkIf config.modules.gpu.amd.enable ["amdgpu"];
+      hardware.amdgpu.initrd.enable = false;
     })
   ]);
 }

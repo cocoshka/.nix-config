@@ -24,7 +24,6 @@
     gpu.nvidia = {
       enable = true;
       hybrid = true;
-      ddg = true;
     };
 
     audio.pipewire.enable = true;

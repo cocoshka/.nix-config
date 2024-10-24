@@ -1,9 +1,8 @@
 {
-  inputs,
   config,
   lib,
   ...
-} @ attrs: let
+}: let
   cfg = config.modules.gpu.amd;
 in {
   options = {
@@ -12,5 +11,14 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable ((import inputs.nixos-hardware.nixosModules.common-gpu-amd attrs).config);
+  config = lib.mkIf cfg.enable {
+    services.xserver.videoDrivers = lib.mkDefault ["modesetting"];
+
+    hardware.graphics = {
+      enable = lib.mkDefault true;
+      enable32Bit = lib.mkDefault true;
+    };
+
+    hardware.amdgpu.initrd.enable = lib.mkDefault true;
+  };
 }
