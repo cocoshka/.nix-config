@@ -1,7 +1,8 @@
 {...}: {
   dconf.settings = {
     "org/gnome/mutter" = {
-      experimental-features = ["scale-monitor-framebuffer"];
+      # Broken, see https://gitlab.gnome.org/GNOME/mutter/-/issues/3509
+      # experimental-features = ["scale-monitor-framebuffer"];
     };
   };
 }
