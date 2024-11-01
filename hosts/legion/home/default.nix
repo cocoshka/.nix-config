@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  internal,
+  ...
+}: {
+  imports = internal.listModules ./.;
+
   modules = {
     virtualisation.qemu.enable = true;
   };
