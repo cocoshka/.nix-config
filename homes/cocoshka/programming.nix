@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    vscode
+    upstream.vscode
     jetbrains.idea-ultimate
 
     python3
