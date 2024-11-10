@@ -141,7 +141,7 @@ in rec {
               ++ lib.optionals (inputs ? agenix) [
                 inputs.agenix.homeManagerModules.default
                 {
-                  environment.systemPackages = [inputs.agenix.packages.${hostSystem}.default];
+                  home.packages = [inputs.agenix.packages.${hostSystem}.default];
                 }
               ]
               ++ modules;

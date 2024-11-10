@@ -80,7 +80,7 @@
           "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.legion.options"
         },
         "home-manager": {
-          "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"cocoshka@rpi\".options.home-manager.users.cocoshka"
+          "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"cocoshka@rpi\".options"
         }
       }
     }
