@@ -39,7 +39,7 @@
     packages = internal.systems.for.all (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
     # Custom modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
+    overlays = import ./overlays {inherit inputs lib;};
 
     # Reusable modules, stuff that could be upstreamed into nixpkgs or home-manager
     nixosModules = import ./modules/nixos;
