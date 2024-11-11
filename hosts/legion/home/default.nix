@@ -13,7 +13,6 @@
     brave
     vesktop
     ffmpeg
-    obsidian
     caprine
     bitwarden-desktop
 
