@@ -73,6 +73,7 @@ in rec {
                     home-manager.useUserPackages = lib.mkDefault true;
                     home-manager.extraSpecialArgs = args;
                     home-manager.backupFileExtension = lib.mkDefault "hm-backup";
+                    home-manager.verbose = true;
                     home-manager.users = lib.mkIf (username != "") {
                       ${username} = {
                         imports =
