@@ -28,5 +28,6 @@
     jq
     fastfetch
     age
+    amberol
   ];
 }
