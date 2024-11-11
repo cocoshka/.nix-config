@@ -2,5 +2,6 @@
   home.packages = with pkgs; [
     onlyoffice-desktopeditors
     upstream.obsidian
+    upstream.foliate
   ];
 }

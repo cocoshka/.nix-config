@@ -105,6 +105,7 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    WEBKIT_DISABLE_DMABUF_RENDERER = "1";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
