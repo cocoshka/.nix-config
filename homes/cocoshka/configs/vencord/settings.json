@@ -407,7 +407,8 @@
         },
         "PinDMs": {
             "enabled": true,
-            "dmSectioncollapsed": false
+            "dmSectioncollapsed": false,
+            "pinOrder": 0
         },
         "PlainFolderIcon": {
             "enabled": false
@@ -650,6 +651,6 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1730833154592
+        "settingsSyncVersion": 1731604570540
     }
 }
