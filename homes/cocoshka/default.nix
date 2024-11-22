@@ -31,5 +31,6 @@
     amberol
     normcap # Screenshot OCR
     xsel # Required for normcap
+    vlc
   ];
 }
