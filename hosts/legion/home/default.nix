@@ -15,6 +15,7 @@
     ffmpeg
     caprine
     bitwarden-desktop
+    qbittorrent
 
     (makeAutostartItem {
       name = "vesktop";
