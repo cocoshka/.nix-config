@@ -23,6 +23,10 @@ in {
         powerManagement.enable = lib.mkDefault false;
       };
       services.xserver.videoDrivers = lib.mkDefault ["nvidia"];
+      environment.variables = {
+        # Hardware cursors are currently broken on nvidia
+        WLR_NO_HARDWARE_CURSORS = "1";
+      };
     }
     (lib.mkIf cfg.hybrid {
       hardware.nvidia = {
