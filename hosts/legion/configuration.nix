@@ -101,6 +101,7 @@
   environment.systemPackages = with pkgs; [
     # The Nano editor is installed by default.
     obs-studio
+    gtop
   ];
 
   environment.sessionVariables = {
