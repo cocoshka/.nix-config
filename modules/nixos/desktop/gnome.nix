@@ -13,15 +13,36 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.xserver.enable = true;
+    services.xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
 
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
+    services.dbus.packages = with pkgs; [
+      # Required for gnome3 pinentry to work
+      gcr
+    ];
+    services.gvfs.enable = true;
+
+    xdg.portal.wlr.enable = true;
 
     qt = {
       enable = true;
       platformTheme = "gnome";
       style = "adwaita-dark";
+    };
+
+    services.udev.packages = with pkgs; [
+      gnome-settings-daemon
+    ];
+
+    services.xserver.excludePackages = with pkgs; [
+      xterm
+    ];
+
+    environment.variables = {
+      QT_QPA_PLATFORM = "wayland";
     };
 
     environment.gnome.excludePackages = with pkgs; [
@@ -35,10 +56,6 @@ in {
       totem
       geary
       yelp
-    ];
-
-    services.xserver.excludePackages = with pkgs; [
-      xterm
     ];
 
     environment.systemPackages = with pkgs;
