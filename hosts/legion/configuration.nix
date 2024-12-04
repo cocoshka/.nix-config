@@ -102,6 +102,7 @@
     # The Nano editor is installed by default.
     obs-studio
     gtop
+    just
   ];
 
   environment.sessionVariables = {
