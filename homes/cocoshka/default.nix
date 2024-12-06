@@ -33,5 +33,6 @@
     xsel # Required for normcap
     vlc
     anydesk
+    clapper
   ];
 }
