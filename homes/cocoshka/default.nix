@@ -20,8 +20,7 @@
   };
 
   home.packages = with pkgs; [
-    nil
-    nixd
+    upstream.nixd
     alejandra
     bat
     btop
