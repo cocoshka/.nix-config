@@ -19,12 +19,6 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    foliate = prev.foliate.overrideAttrs (oldAttrs: {
-      postInstall = ''
-        wrapProgram $out/bin/foliate \
-          --prefix GSK_RENDERER : "ngl"
-      '';
-    });
   };
 in
   upstream-packages

@@ -18,6 +18,7 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       hardware.nvidia = {
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
         open = lib.mkDefault false;
         modesetting.enable = lib.mkDefault true;
         powerManagement.enable = lib.mkDefault false;
