@@ -1,37 +1,20 @@
 {
-  options,
-  config,
   lib,
+  username ? "",
   ...
-} @ args: let
-  cfg = config.modules.user;
-  username = args.username or cfg.name or "";
+}: let
   enabled = username != "";
 in {
-  options = {
-    modules.user = lib.mkOption {
-      type = lib.types.attrs;
-      default = {};
-    };
-  };
+  imports = lib.optionals enabled [
+    (lib.mkAliasOptionModule ["modules" "user"] ["users" "users" username])
+  ];
 
-  config = {
-    assertions = [
-      {
-        assertion = enabled && (lib.length (lib.attrNames cfg)) > 0;
-        message = "No username argument or config.modules.user.name provided!";
-      }
-    ];
-
+  config = lib.mkIf enabled {
     modules.user = {
       isNormalUser = true;
-      description = lib.mkDefault (cfg.name or args.username);
+      description = lib.mkDefault username;
       extraGroups = ["wheel"];
       initialPassword = "nixos";
-    };
-
-    users.users = lib.mkIf enabled {
-      ${username} = lib.mkAliasDefinitions options.modules.user;
     };
   };
 }
