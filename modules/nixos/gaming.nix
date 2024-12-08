@@ -14,9 +14,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    modules.user = {
+      extraGroups = ["gamemode"];
+    };
+
     programs.steam = {
       enable = true;
       gamescopeSession.enable = true;
+      extraPackages = with pkgs; [
+        gamemode
+        gamescope
+        mangohud
+      ];
     };
 
     programs.gamemode.enable = true;
@@ -43,5 +52,9 @@ in {
     environment.sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/${username}/.steam/root/compatibilitytools.d";
     };
+
+    programs.nix-ld.libraries = with pkgs; [
+      gamemode
+    ];
   };
 }
